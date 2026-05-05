@@ -85,58 +85,6 @@ DownloadFile(Url, FilePath)
     oStream.SaveToFile(FilePath, 2) ; adSaveCreateOverWrite
 }
 
-; === ПРОВЕРКА ОБНОВЛЕНИЙ С ВАШЕГО GITHUB ===
-CheckForUpdates() {
-    WinHttp := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-    
-    ; Получаем версию с GitHub
-    WinHttp.Open("GET", "https://raw.githubusercontent.com/joshventura1337-prog/mackross/main/version.txt?t=" . A_Now, false)
-    WinHttp.SetRequestHeader("User-Agent", "AutoHotkey v1")
-    WinHttp.Send()
-    
-    ; Получаем статус в отдельную переменную
-    HttpStatus := WinHttp.Status
-    
-    if (HttpStatus = 200) {
-        remoteVersion := Trim(WinHttp.ResponseText)
-        
-        if (remoteVersion > version) {
-            MsgBox, 4, Обновление доступно!, Найдена новая версия %remoteVersion% на GitHub.`nТекущая версия: %version%`n`nУстановить обновление?
-            IfMsgBox, Yes
-            {
-                ; Скачиваем новый скрипт
-                DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/main/макрос миша.ahk", "update_temp.ahk")
-                
-                ; Получаем пути заранее
-                FullPath := A_ScriptFullPath
-                Name := A_ScriptName
-                Dir := A_ScriptDir
-                
-                ; Создаём батник
-                FileAppend, 
-                (LTrim
-@echo off
-timeout /t 2 /nobreak >nul
-del /f /q "`%FullPath`%"
-ren "update_temp.ahk" "`%Name`%"
-start "" "`%FullPath`%"
-del "`%~f0`%"
-                ), run_update.bat
-                
-                Run, run_update.bat
-                ExitApp
-            }
-        } else {
-            if (A_ThisLabel = "CheckUpdates") {
-                MsgBox, 64, Обновления, У вас установлена последняя версия %version% ✓
-            }
-        }
-    } else {
-        MsgBox, 48, Ошибка, Не удалось проверить обновления.`nСтатус: %HttpStatus%
-    }
-}
-
-
 IniRead, frac, assets/Settings.ini, USER, frac, Фракция
 IniRead, otdel, assets/Settings.ini, USER, otdel, Отдел
 IniRead, rank, assets/Settings.ini, USER, rank, Номер
@@ -330,7 +278,6 @@ Gui, Add, Button, x902 y149 w150 h30 gWIKI, WIKI
 Gui, Add, Button, x902 y189 w150 h30 gSettings, Настройки
 ;Gui, Add, Button, x902 y229 w150 h30 gLawsuit, Генератор исков
 Gui, Add, Button, x22 y430 w150 h30 gSave, Сохранить
-Gui, Add, Button, x902 y409 w150 h30 gCheckUpdates, Проверить обновления
 
 ;==== Бейджик ==== 
 Gui, Add, Hotkey, x22 y60 w95 h30 vKey1, %Key1%
@@ -449,10 +396,6 @@ return
 
 Discord:
 Run, https://vk.com/id521135448
-return
-
-CheckUpdates:
-CheckForUpdates()
 return
 
 WIKI:
