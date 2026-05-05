@@ -555,7 +555,7 @@ IniRead, rank, assets/Settings.ini, USER, rank
 IniRead, place, assets/Settings.ini, USER, place
 
 ChatOpen()
-temp_msg = /do На груди закреплен жетон номер %otdel%-%rank%.
+temp_msg = /do На груди закреплен жетон номер [%otdel%-%rank%].
 FastSend(temp_msg)
 SendInput {Enter}
 
