@@ -44,7 +44,7 @@ FileCreateDir, %A_ScriptDir%\assets
 ; IniRead, v, assets/Settings.ini, USER, v
 if v != %version%
 {
-DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/help.png", "assets\help.png")
+DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1f3b6d7aa3583d24007f9880fec07b70d60268c1/assets/help.png", "assets\help.png")
 DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/10code.png", "assets\10code.png")
 DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/ourfamily.png", "assets\ourfamily.png")
 DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/logo.png", "assets\logo.png")
