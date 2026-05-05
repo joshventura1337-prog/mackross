@@ -5,20 +5,9 @@ SetWorkingDir %A_ScriptDir%
 
 ; --- ИНИЦИАЛИЗАЦИЯ ПОЛЬЗОВАТЕЛЬСКИХ КОМАНД ---
 LoadAliases() {
-    ; Если файла нет, создаем его с примерами по умолчанию
+    ; Если файла нет - просто выходим. Ничего не создаем.
     IfNotExist, aliases.txt
-    {
-        FileAppend, 
-        (LTrim
-        `; Пользовательские быстрые команды State Tool
-        `; ВАЖНО: Пользовательские команды не могут заменить предустановленные.
-		`; ВАЖНО 2: После добавления команды, перезапустите приложение.
-		`; Формат: триггер=Текст для замены
-        `; --------------------------------------------
-        ..ку=Привет, друг!
-		..плакать=/me заплакал от грусти
-        ), aliases.txt, UTF-8
-    }
+        return
 
     ; Читаем файл построчно
     Loop, Read, aliases.txt
@@ -62,20 +51,17 @@ DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1f
 ; IniWrite, %version%, assets/Settings.ini, USER, v
 }
 
-IfnotExist, %A_ScriptDir%\update.ahk
-	DownloadFile("https://raw.githubusercontent.com/my0kul/RPHUB/refs/heads/main/update.ahk", "update.ahk")
-
 IfnotExist, %A_ScriptDir%\assets\help.png
-	DownloadFile("https://raw.githubusercontent.com/my0kul/RPHUB/refs/heads/main/assets/help.png", "assets\help.png")
+	DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/help.png", "assets\help.png")
 
 IfnotExist, %A_ScriptDir%\assets\10code.png
-	DownloadFile("https://raw.githubusercontent.com/my0kul/RPHUB/refs/heads/main/assets/10code.png", "assets\10code.png")
+	DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/10code.png", "assets\10code.png")
 
 IfnotExist, %A_ScriptDir%\assets\ourfamily.png
-	DownloadFile("https://raw.githubusercontent.com/my0kul/RPHUB/refs/heads/main/assets/ourfamily.png", "assets\ourfamily.png")
+	DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/ourfamily.png", "assets\ourfamily.png")
 
 IfnotExist, %A_ScriptDir%\assets\logo.png
-	DownloadFile("https://raw.githubusercontent.com/my0kul/RPHUB/refs/heads/main/assets/logo.png", "assets\logo.png")
+	DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/1fc96a065aa82f7cf66abeab5196844e3ac901d2/assets/logo.png", "assets\logo.png")
 
 
 DownloadFile(Url, FilePath)
@@ -101,7 +87,7 @@ DownloadFile(Url, FilePath)
 
 IniRead, frac, assets/Settings.ini, USER, frac, Фракция
 IniRead, otdel, assets/Settings.ini, USER, otdel, Отдел
-IniRead, rank, assets/Settings.ini, USER, rank, Статик
+IniRead, rank, assets/Settings.ini, USER, rank, Номер
 IniRead, place, assets/Settings.ini, USER, place, поясе
 IniRead, type, assets/Settings.ini, USER, type, бейджик
 IniRead, resolution, assets/Settings.ini, USER, resolution, 0
@@ -329,12 +315,12 @@ Gui, Настройки: -SysMenu
 Gui, Настройки: Font, S10 CWhite, Calibri
 Gui, Настройки: Color, c4c4c4
 Gui, Настройки: Font, c0x000000
-Gui, Настройки: Add, Text, x2 y10 w70 h18 +0x200 +0x1, Фракция:
-Gui, Настройки: Add, Edit, x65 y10 w50 h21 vfrac, %frac%
-Gui, Настройки: Add, Text, x120 y10 w50 h18 +0x200 +0x1, Отдел:
-Gui, Настройки: Add, Edit, x165 y10 w50 h21 votdel, %otdel%
-Gui, Настройки: Add, Text, x230 y10 w50 h18 +0x200 +0x1, Статик:
-Gui, Настройки: Add, Edit, x275 y10 w40 h21 vrank, %rank%
+; Gui, Настройки: Add, Text, x2 y10 w70 h18 +0x200 +0x1, Фракция:
+; Gui, Настройки: Add, Edit, x65 y10 w50 h21 vfrac, %frac%
+Gui, Настройки: Add, Text, x2 y10 w70 h18 +0x200 +0x1, Отдел:
+Gui, Настройки: Add, Edit, x65 y10 w50 h21 votdel, %otdel%
+Gui, Настройки: Add, Text, x120 y10 w50 h18 +0x200 +0x1, Статик:
+Gui, Настройки: Add, Edit, x165 y10 w50 h21 vrank, %rank%
 Gui, Настройки: Add, Text, x2 y36 w70 h18 +0x200 +0x1, Ваш пол:
 Gui, Настройки: Add, Radio, x70 y33 w80 h23 Group vRadio1 Checked%Radio1%, Мужчина
 Gui, Настройки: Add, Radio, x150 y33 w80 h23 vRadio2 Checked%Radio2%, Женщина
@@ -409,11 +395,12 @@ return
 ; return
 
 Discord:
-Run, https://m5rp.ru/statetool
+Run, https://vk.com/id521135448
 return
 
 WIKI:
-Run, https://m5rp.ru/statetool/wiki
+DownloadFile("https://raw.githubusercontent.com/joshventura1337-prog/mackross/main/assets/wiki.png", "assets\wiki.png")
+GuiManager(10, "assets\wiki.png", 600, 800)  ; высота=600, ширина=800
 return
 
 ForumSud:
@@ -568,7 +555,7 @@ IniRead, rank, assets/Settings.ini, USER, rank
 IniRead, place, assets/Settings.ini, USER, place
 
 ChatOpen()
-temp_msg = /do На тактическом поясе закреплен жетон %frac% номер %otdel%-%rank%.
+temp_msg = /do На груди закреплен жетон номер %otdel%-%rank%.
 FastSend(temp_msg)
 SendInput {Enter}
 
